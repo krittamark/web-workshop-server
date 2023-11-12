@@ -67,6 +67,8 @@ services:
     image: mariadb:latest
     ports:
       - "3307:3306"
+    volumes:
+      - ./web/development/db:/var/lib/mysql
     restart: always
     environment:
       - MARIADB_ROOT_PASSWORD=cZRRhZVxqFm
@@ -94,6 +96,8 @@ services:
     image: mariadb:latest
     ports:
       - "3306:3306"
+    volumes:
+      - ./web/production/db:/var/lib/mysql
     restart: always
     environment:
       - MARIADB_ROOT_PASSWORD=iuOKqJeaOxj
