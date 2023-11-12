@@ -1,0 +1,103 @@
+version: "3.3"
+services:
+  
+  centralweb:
+    container_name: centralweb
+    image: bitnami/openresty:latest
+    restart: always
+    ports:
+      - "80:8080"
+      - "443:443"
+    volumes:
+      - ./web/central/conf:/opt/bitnami/openresty/nginx/conf
+      - ./web/central/html:/opt/bitnami/openresty/nginx/html
+      - ./certs:/opt/bitnami/openresty/nginx/certs
+    networks:
+      - webnet
+
+  workshopweb:
+    container_name: workshopweb
+    image: php:7.4-apache
+    restart: always
+    volumes:
+      - ./web/workshop/html:/var/www/html
+      - ./web/workshop/logs:/var/log/apache2
+      - ./web/workshop/conf:/etc/apache2/
+    networks:
+      - webnet
+
+  developmentweb:
+    container_name: developmentweb
+    image: php:7.4-apache
+    restart: always
+    volumes:
+      - ./web/development/html:/var/www/html
+      - ./web/development/logs:/var/log/apache2
+      - ./web/development/conf:/etc/apache2/
+    networks:
+      - webnet
+
+  developmentdbadminweb:
+    container_name: developmentdbadminweb
+    image: phpmyadmin:apache
+    restart: always
+    environment:
+      - PMA_HOST=developmentdb
+      - PMA_PORT=3306
+    networks:
+      - webnet
+      
+  developmentdb:
+    container_name: developmentdb
+    image: mariadb:latest
+    ports:
+      - "3307:3306"
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=cZRRhZVxqFm
+      - MARIADB_DATABASE=workshop
+      - MARIADB_USER=workshop1
+      - MARIADB_PASSWORD=workshopUser1
+    networks:
+      - webnet
+
+
+
+  productionweb:
+    container_name: productionweb
+    image: php:7.4-apache
+    restart: always
+    volumes:
+      - ./web/production/html:/var/www/html
+      - ./web/production/logs:/var/log/apache2
+      - ./web/production/conf:/etc/apache2/
+    networks:
+      - webnet
+
+  productiondb:
+    container_name: productiondb
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=iuOKqJeaOxj
+      - MARIADB_DATABASE=skr-webtech
+      - MARIADB_USER=webtech1
+      - MARIADB_PASSWORD=UTQTbY_LyQSTY
+    networks:
+      - webnet
+
+  productiondbadminweb:
+    container_name: productiondbadminweb
+    image: phpmyadmin:apache
+    restart: always
+    environment:
+      - PMA_HOST=productiondb
+      - PMA_PORT=3306
+    networks:
+      - webnet
+
+
+networks:
+  webnet:
