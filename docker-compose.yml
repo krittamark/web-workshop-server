@@ -70,9 +70,9 @@ services:
     restart: always
     environment:
       - MARIADB_ROOT_PASSWORD=cZRRhZVxqFm
-      - MARIADB_DATABASE=workshop
-      - MARIADB_USER=workshop1
-      - MARIADB_PASSWORD=workshopUser1
+      - MARIADB_DATABASE=dev-webtech
+      - MARIADB_USER=dev_webtech1
+      - MARIADB_PASSWORD=dev_webtech1
     networks:
       - webnet
 
