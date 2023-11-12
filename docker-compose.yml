@@ -103,7 +103,7 @@ services:
       - MARIADB_ROOT_PASSWORD=iuOKqJeaOxj
       - MARIADB_DATABASE=skr-webtech
       - MARIADB_USER=webtech1
-      - MARIADB_PASSWORD=UTQTbY_LyQSTY
+      - MARIADB_PASSWORD=UTQTbY
     networks:
       - webnet
 
